@@ -1,0 +1,70 @@
+
+
+# Wardrobe
+
+... because even your apps might want a change of clothes.
+
+## Goals of this gem
+
+I'd like to make it as easy as possible to:
+
+* start up a new theme
+* "fork" an existing theme to implement your own changes
+* not require adding routes
+* rely on the asset pipeline
+* rely on gem packaging toolchain
+* rely on rails' plugin system
+
+## Installation
+
+In your gemfile:
+
+```
+gem 'wardrobe'
+```
+
+And after a `bundle install` you can generate a new theme. Let's assume we're calling it `bulldog`.
+
+```
+rails g theme bulldog
+```
+
+*Note on naming -- use underscore naming as the convention. EG: `english_bulldog`, not english-bulldog*.
+
+This will great the skeleton of an asset gem in `./themes/bulldog` and will let you know what to add in your gemfile. You must add the resulting code to your own Gemfile as it won't do it for you. For the purposes of our above example it would be:
+
+
+```
+gem 'wardrobe-bulldog', path: './themes/bulldog'
+```
+
+## Contents of your theme
+
+Initial asset manifests:
+
+```
+themes/bulldog/assets/stylesheets/bulldog.css.scss
+themes/bulldog/assets/javascripts/bulldog.js
+```
+
+You may now reference these assets in your layout(s) or view(s) with the following:
+
+```
+<%= stylesheet_link_tag "bulldog" %>
+<%= javascript_include_tag "bulldog" %>
+```
+
+### reference
+
+* Generators
+	* http://guides.rubyonrails.org/generators.html#creating-generators-with-generators
+* Asset organization and pipeline setup
+	* http://guides.rubyonrails.org/asset_pipeline.html#asset-organization  
+
+	```
+	config.assets.paths << Rails.root.join("themes", "bulldog", "assets", "stylesheets")
+	config.assets.paths << Rails.root.join("themes", "bulldog", "assets", "javascripts")
+	config.assets.precompile += ['bulldog.css', 'bulldog.js']
+	```
+
+	* 
