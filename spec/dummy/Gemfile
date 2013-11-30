@@ -1,0 +1,5 @@
+source 'https://rubygems.org'
+
+gem 'pry-rails'
+gem 'black_ipa', path: './themes/black_ipa'
+gem 'amber_ale', path: './themes/amber_ale'
