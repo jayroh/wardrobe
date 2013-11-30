@@ -72,9 +72,18 @@ end
 
 Your app will look for each controllers' corresponding view as usual. Please note that your theme's view path has been appended to *the back* of the list of searched paths and any view templates found in previous paths will take precedence. As a result, ensure your application's view templates are moved to the theme directory structure.
 
+## Configuration
+
+Create an initializer in `config/initializers/wardrobe.rb` and let wardrobe know what your default theme is:
+
+```
+Wardrobe.theme = 'bulldog'
+```
+
+## Setting your theme dynamically
 
 
-### Reference
+## Reference
 
 * Generators
 	* http://guides.rubyonrails.org/generators.html#creating-generators-with-generators
