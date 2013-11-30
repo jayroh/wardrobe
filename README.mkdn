@@ -2,7 +2,7 @@
 
 # Wardrobe
 
-... because even your apps might want a change of clothes.
+... because even your apps will sometimes need a change of clothes.
 
 ## Goals of this gem
 
@@ -26,7 +26,7 @@ gem 'wardrobe'
 And after a `bundle install` you can generate a new theme. Let's assume we're calling it `bulldog`.
 
 ```
-rails g theme bulldog
+rails g wardrobe:theme bulldog
 ```
 
 *Note on naming -- use underscore naming as the convention. EG: `english_bulldog`, not english-bulldog*.
@@ -35,16 +35,19 @@ This will great the skeleton of an asset gem in `./themes/bulldog` and will let 
 
 
 ```
-gem 'wardrobe-bulldog', path: './themes/bulldog'
+gem 'bulldog', path: './themes/bulldog'
 ```
 
-## Contents of your theme
 
-Initial asset manifests:
+## Important bits of your theme
+
+Initial asset manifests and directories:
 
 ```
-themes/bulldog/assets/stylesheets/bulldog.css.scss
-themes/bulldog/assets/javascripts/bulldog.js
+vendor/assets/stylesheets/bulldog.css.scss
+vendor/assets/javascripts/bulldog.js
+vendor/views/layouts/bulldog.html.erb
+vendor/views/shared/
 ```
 
 You may now reference these assets in your layout(s) or view(s) with the following:
@@ -54,17 +57,30 @@ You may now reference these assets in your layout(s) or view(s) with the followi
 <%= javascript_include_tag "bulldog" %>
 ```
 
-### reference
+This is the most straightforward, Rails supported out-of-the-box, approach. The new assets are in the asset pipeline path(s) and are set to pre-compile.
+
+## Integration with your app
+
+By default, rails will search your view path for layouts named after your current controller, falling back on (the default) `application.html.erb`. With a `wardrobe` theme you will get a new layout named after your theme. To switch to your new layout, if you so choose, point your root `ApplicationController` to your theme's layout
+
+```
+class ApplicationController < ActionController::Base
+  layout "bulldog"
+  #...
+end
+```
+
+Your app will look for each controllers' corresponding view as usual. Please note that your theme's view path has been appended to *the back* of the list of searched paths and any view templates found in previous paths will take precedence. As a result, ensure your application's view templates are moved to the theme directory structure.
+
+
+
+### Reference
 
 * Generators
 	* http://guides.rubyonrails.org/generators.html#creating-generators-with-generators
+	* http://railscasts.com/episodes/218-making-generators-in-rails-3?view=asciicast
+	* http://api.rubyonrails.org/classes/Rails/Generators/Base.html
+	* http://nicksda.apotomo.de/2010/09/getting-a-bloody-rails-3-generator-running-and-testing-it/
 * Asset organization and pipeline setup
 	* http://guides.rubyonrails.org/asset_pipeline.html#asset-organization  
 
-	```
-	config.assets.paths << Rails.root.join("themes", "bulldog", "assets", "stylesheets")
-	config.assets.paths << Rails.root.join("themes", "bulldog", "assets", "javascripts")
-	config.assets.precompile += ['bulldog.css', 'bulldog.js']
-	```
-
-	* 

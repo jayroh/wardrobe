@@ -1,0 +1,9 @@
+require "<%= file_name %>/version"
+
+module <%= class_name %>
+  class Engine < ::Rails::Engine
+    config.assets.paths << <%= class_name %>::Engine.root.join('vendor', 'assets', 'stylesheets')
+    config.assets.paths << <%= class_name %>::Engine.root.join('vendor', 'assets', 'javascripts')
+    config.assets.precompile += ['<%= file_name %>.css', '<%= file_name %>.js']
+  end
+end

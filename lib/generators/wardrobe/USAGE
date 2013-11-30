@@ -1,0 +1,17 @@
+Description:
+    Generate a new theme for your application.
+
+Example:
+    rails g wardrobe:theme theme_name
+
+    This will create:
+        create  themes/theme_name
+        create  themes/theme_name/theme_name.gemspec
+        create  themes/theme_name/Gemfile
+        create  themes/theme_name/LICENSE.txt
+        create  themes/theme_name/README.md
+        create  themes/theme_name/Rakefile
+        create  themes/theme_name/lib/theme_name.rb
+        create  themes/theme_name/lib/theme_name/version.rb
+        create  themes/theme_name/vendor/assets/javascripts/theme_name.js
+        create  themes/theme_name/vendor/assets/stylesheets/theme_name.css.scss
